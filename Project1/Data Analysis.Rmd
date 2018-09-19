@@ -1,23 +1,18 @@
 ---
-title: "Project 1: Data and Visualization"
-author: "Justin Leford and Eric Smith"
-output: html_notebook
-editor_options: 
+title: 'Project 1: Data and Visualization'
+author: "Eric Smith"
+output:
+  html_document:
+    df_print: paged
+editor_options:
   chunk_output_type: inline
 ---
 
-##Business Understanding
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed mi ornare, feugiat sapien vulputate, luctus libero. Vivamus vel neque ut ante dictum mattis vitae at mi. Integer bibendum ante nibh, eget tincidunt neque vestibulum eget. Curabitur eu malesuada felis. Suspendisse a ipsum id purus sagittis tempus.
-
-##Data Understanding
 ####Load Data
 ```{r echo=FALSE}
-claims <- read.csv(file="Data/Claims_Y1.csv")
-members <- read.csv(file="Data/Members_Y1.csv")
+claims <- read.csv(file="Data/hospital/Claims_Y1.csv")
+members <- read.csv(file="Data/hospital/Members_Y1.csv")
+days_in_hospital <- read.csv(file="Data/hospital/DayInHospital_Y2.csv")
 print("Data loaded successfully.")
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed mi ornare, feugiat sapien vulputate, luctus libero. Vivamus vel neque ut ante dictum mattis vitae at mi. Integer bibendum ante nibh, eget tincidunt neque vestibulum eget. Curabitur eu malesuada felis. Suspendisse a ipsum id purus sagittis tempus. 
-
-##Data Preperation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed mi ornare, feugiat sapien vulputate, luctus libero. Vivamus vel neque ut ante dictum mattis vitae at mi. Integer bibendum ante nibh, eget tincidunt neque vestibulum eget. Curabitur eu malesuada felis. Suspendisse a ipsum id purus sagittis tempus. 
