@@ -7,6 +7,7 @@ members <- read.csv(file="./data/hospital/Members_Y1.csv")
 dih     <- read.csv(file="./data/hospital/DayInHospital_Y2.csv")
 # merge data
 claims_members <- merge(claims, members)
+cmdih <- merge(claims_members, dih, by.x='MemberID', by.y='memberid')
 
 # convert to factors
 claims_members$MemberID <- as.factor(claims_members$MemberID)
@@ -58,3 +59,37 @@ levelplot(m, aspect='fill',
           ylab='Primary Condition Group', xlab='Charlson Index',
           col.regions=rev(gray(0:100/100)))
 dev.print(png, './plots/pcg-index-heat.png', width=800)
+
+cmdih_first_only <- cmdih[!duplicated(cmdih['MemberID']),]
+
+
+# age/dih
+t <- round(prop.table(ftable(age ~ dih_), 2) * 100)
+barplot(t, main='Relative Frequencies of Days in Hospital in Age Groups',
+        xlab='Age Group', ylab='Relative Frequency of Days In Hospital',
+        beside=TRUE)
+dev.print(png, './plots/age-dih.png', width=800)
+
+
+# pcg transactions
+library('arules')
+
+write.csv(cmdih, './tmp/cmdih.csv')
+
+pcg_trans <- read.transactions(file='./tmp/cmdih.csv',
+                                 format='single',
+                                 sep = ',',
+                                 cols=c('MemberID', 'PrimaryConditionGroup'))
+summary(pcg_trans)
+
+# distribution of number of conditions per member
+pcg_count_dist <- c(15306, 14516, 12562, 10180, 7675, 5749, 4059,
+                    2907, 1883, 1204, 652, 336, 151, 72, 31, 2, 4)
+barplot(pcg_count_dist, names.arg=1:17,
+        main='Frequency of Primary Conditions Groups/Year Per Member',
+        ylab='Frequency', xlab='Number of Primary Condition Groups/Year')
+dev.print(png, './plots/pcg-num.png', width=800)
+
+
+# TODO add number of conditions to member row
+
